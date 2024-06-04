@@ -1,7 +1,0 @@
-services:
-  - type: static
-    buildCommand: npm run build   # or any other build command you use
-    publishDir: ./client
-    routes:
-      - src: /*
-        dest: /mainPage.html   # or the path to your main page
