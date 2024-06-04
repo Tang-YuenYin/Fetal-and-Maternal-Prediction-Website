@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama's Jounal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./node_modules/page-flip/dist/js/page-flip.browser.js"></script>    <script src="./node_modules/page-flip/dist/js/page-flip.browser.js"></script>
+</head>
+<body>
+    <div id="book">
+        <div class="my-page" data-density="hard" id="cover-page">
+          <h2>Mama's Journal</h2>
+          <br>
+          <img src="https://www.ruralhealthinfo.org/assets/4242-18191/rural-maternal-health-toolkit-thumb.jpg" alt="Mummy">
+          <br><br>
+          <div class="trimester-wrapper">
+          <p>Start Date: <span id="start-date">26 May 2024</span></p>
+          <p>End Date: <span id="end-date">25 February 2025</span></p>
+          </div>
+        </div>
+
+          <!-- Pages will be dynamically added here -->
+
+        <div class="my-page" data-density="hard" id="last-page">
+          <br>
+
+          <img src="https://media.tenor.com/DIwMSqxqQscAAAAM/soon-to-be-mom-pregnant.gif" alt="Safely Expecting Soon" >
+          <br><br>
+          <h2>Safely Expecting Soon</h2>
+      
+        </div>
+    </div>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      // import { getFirestore, collection, query, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      // import dotenv from '/node_modules/dotenv';
+
+      // // Load environment variables from .env file
+      // dotenv.config();
+
+//       const dotenv = require('dotenv')
+// const buf = Buffer.from('BASIC=basic')
+// const config = dotenv.parse(buf) // will return an object
+
+      // Your web app's Firebase configuration
+    
+      document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('http://localhost:5000/maternal-record');
+        const records = await response.json();
+        console.log(records)
+
+        // Function to create and add pages to the flipbook
+        function createPage(record) {
+            const page = document.createElement('div');
+            page.classList.add("my-page");
+
+            // Parse the datetime string and extract the date
+            const date = new Date(record.date);
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const formattedDate = date.toLocaleDateString('en-US', options);
+
+            const dateDiv = document.createElement('div');
+            dateDiv.classList.add('date');
+            dateDiv.innerText = `${formattedDate}`;
+            page.appendChild(dateDiv);
+
+            const inputDataDiv = document.createElement('div');
+            inputDataDiv.classList.add('input-data');
+
+            const baselineDiv = document.createElement('div');
+            baselineDiv.classList.add('input-data-item');
+            baselineDiv.innerHTML = `<img src="https://t3.ftcdn.net/jpg/02/87/70/82/360_F_287708200_wTq4URYtOsqH1Mjk2VxxulrkcTo0EkY0.jpg" alt="Blood Sugar"><span> Blood Sugar: ${record.input_data.BS}</span>`;
+            inputDataDiv.appendChild(baselineDiv);
+
+            const uterineDiv = document.createElement('div');
+            uterineDiv.classList.add('input-data-item');
+            uterineDiv.innerHTML = `<span> Diastolic BP: ${record.input_data.DiastolicBP}</span><img src="https://static.vecteezy.com/system/resources/previews/007/379/950/original/digital-upper-arm-blood-pressure-monitor-color-icon-oximeter-pulse-heart-rate-control-medical-device-systolic-diastolic-blood-pressure-measurement-sphygmomanometer-isolated-illustration-vector.jpg" alt="Diastolic BP">`;
+            inputDataDiv.appendChild(uterineDiv);
+
+            const fetalDiv = document.createElement('div');
+            fetalDiv.classList.add('input-data-item');
+            fetalDiv.innerHTML = `<img src="https://cdn3.vectorstock.com/i/1000x1000/44/37/systolic-blood-pressure-and-diastolic-vector-49434437.jpg" alt="SystolicBP"><span> SystolicBP: ${record.input_data.SystolicBP}</span>`;
+            inputDataDiv.appendChild(fetalDiv);
+
+            page.appendChild(inputDataDiv);
+
+            const predictionDiv = document.createElement('div');
+            predictionDiv.classList.add('prediction');
+            predictionDiv.innerText = `Status: ${record.prediction.toUpperCase()}`;
+            page.appendChild(predictionDiv);
+
+            return page;
+        }
+
+        // Append cover page
+        const book = document.getElementById('last-page').parentNode;
+        const lastPage = document.getElementById('last-page');
+        
+        records.forEach(record => {
+            const page = createPage(record);
+            book.insertBefore(page, lastPage); 
+        });
+
+        const pages = document.querySelectorAll('.my-page');
+        if (pages.length % 2 !== 0) {
+            const blankPage = document.createElement('div');
+            blankPage.classList.add('my-page');
+            book.insertBefore(blankPage, lastPage);
+        }
+
+        const Flip = new St.PageFlip(document.getElementById('last-page').parentNode, {
+            width: 500, // required parameter - base page width
+            height: 650, // required parameter - base page height
+            showCover: true, // enable the cover page
+        });
+
+        Flip.loadFromHTML(document.querySelectorAll('.my-page'));
+
+        Flip.on('flip', (e) => {
+            console.log(`Current page number: ${e.data}`);
+        });
+    } catch (error) {
+        console.error('Error fetching maternal records:', error);
+        alert('Failed to fetch maternal records. Please try again later.');
+    }
+});
+
+
+            
+        
+            
+    </script>
+
+    <script src="./pageFlip.js"></script>
+   
+</body>
+</html>

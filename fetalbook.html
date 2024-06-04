@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby's Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./node_modules/page-flip/dist/js/page-flip.browser.js"></script>    <script src="./node_modules/page-flip/dist/js/page-flip.browser.js"></script>
+</head>
+<body>
+    <div id="book">
+        <div class="my-page" data-density="hard" id="cover-page">
+          <h2>Baby's Journal</h2>
+          <br>
+          <img src="https://img.freepik.com/premium-vector/illustration-baby-belly-with-cute-pose-love-isolated-pink-background_244307-389.jpg?w=740" alt="Fetal in Womb">
+          <br><br>
+          <div class="trimester-wrapper">
+          <p>Start Date: <span id="start-date">26 May 2024</span></p>
+          <p>End Date: <span id="end-date">25 February 2025</span></p>
+          </div>
+        </div>
+
+          <!-- Pages will be dynamically added here -->
+
+        <div class="my-page" data-density="hard" id="last-page">
+          <br>
+
+          <img src="https://media0.giphy.com/media/B1KxmQPjVykjiYiJze/giphy.gif?cid=6c09b952bf5qvlpy02492eilkjm4jz5ohmd3vley8de03z2i&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Onboarding to the Family Soon" >
+          <br><br>
+          <h2>Onboarding to the Family Soon</h2>
+      
+        </div>
+    </div>
+
+    <script type="module">
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('http://localhost:5000/fetal-record');
+        const records = await response.json();
+        console.log(records)
+
+       // Function to create and add pages to the flipbook
+       function createPage(record) {
+            const page = document.createElement('div');
+            page.classList.add("my-page");
+
+            // Parse the datetime string and extract the date
+             const date = new Date(record.date);
+             const options = { day: 'numeric', month: 'long', year: 'numeric' };
+             const formattedDate = date.toLocaleDateString('en-US', options);
+
+            const dateDiv = document.createElement('div');
+            dateDiv.classList.add('date');
+            dateDiv.innerText = `${formattedDate}`;
+            page.appendChild(dateDiv);
+
+            const inputDataDiv = document.createElement('div');
+            inputDataDiv.classList.add('input-data');
+
+            const baselineDiv = document.createElement('div');
+            baselineDiv.classList.add('input-data-item');
+            baselineDiv.innerHTML = `<img src="https://cdn-icons-png.freepik.com/512/11969/11969704.png" alt="Baseline Value"><span> Accelerations:${record.input_data.accelerations}</span>`;
+            inputDataDiv.appendChild(baselineDiv);
+
+            const uterineDiv = document.createElement('div');
+            uterineDiv.classList.add('input-data-item');
+            uterineDiv.innerHTML = `<span> Uterine Contractions: ${record.input_data.uterine_contractions}</span><img src="https://media.istockphoto.com/id/1369187774/vector/cute-funny-crying-sad-uterus-character-vector-hand-drawn-traditional-cartoon-vintage-retro.jpg?s=612x612&w=0&k=20&c=tqZjWBghMwBAeTpQcpVIFG2j3qchFpk3oTosa6h7R20=" alt="Uterine Contractions">`;
+            inputDataDiv.appendChild(uterineDiv);
+
+            const fetalDiv = document.createElement('div');
+            fetalDiv.classList.add('input-data-item');
+            fetalDiv.innerHTML = `<img src="https://i.pinimg.com/736x/50/5e/88/505e886a530cda28556950bd53d00a7b.jpg" alt="Fetal Movement"><span> Fetal Movement: ${record.input_data.fetal_movement}</span>`;
+            inputDataDiv.appendChild(fetalDiv);
+
+            page.appendChild(inputDataDiv);
+
+            const predictionDiv = document.createElement('div');
+            predictionDiv.classList.add('prediction');
+            predictionDiv.innerText = `Status: ${record.prediction.toUpperCase()}`;
+            page.appendChild(predictionDiv);
+
+            return page;
+        }
+        // Append cover page
+        const book = document.getElementById('last-page').parentNode;
+        const lastPage = document.getElementById('last-page');
+        
+        records.forEach(record => {
+            const page = createPage(record);
+            book.insertBefore(page, lastPage); 
+        });
+
+        const pages = document.querySelectorAll('.my-page');
+        if (pages.length % 2 !== 0) {
+            const blankPage = document.createElement('div');
+            blankPage.classList.add('my-page');
+            book.insertBefore(blankPage, lastPage);
+        }
+
+        const Flip = new St.PageFlip(document.getElementById('last-page').parentNode, {
+            width: 500, // required parameter - base page width
+            height: 650, // required parameter - base page height
+            showCover: true, // enable the cover page
+        });
+
+        Flip.loadFromHTML(document.querySelectorAll('.my-page'));
+
+        Flip.on('flip', (e) => {
+            console.log(`Current page number: ${e.data}`);
+        });
+    } catch (error) {
+        console.error('Error fetching maternal records:', error);
+        alert('Failed to fetch maternal records. Please try again later.');
+    }
+});
+       
+
+        // Function to create and add pages to the flipbook
+        
+
+            
+        
+            
+    </script>
+
+    <script src="./pageFlip.js"></script>
+   
+</body>
+</html>
+

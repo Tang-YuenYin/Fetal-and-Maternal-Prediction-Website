@@ -1,0 +1,475 @@
+/*General Styles*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 16px;
+	font-family: "Raleway", sans-serif;
+	color: #555;
+}
+
+ul,
+nav {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	opacity: 0.75;
+	color: #fff;
+}
+
+a:hover {
+	opacity: 1;
+}
+
+a.btn {
+	border-radius: 4px;
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+	background-color: #e07e7b;
+	opacity: 1;
+	transition: all 400ms;
+	margin: 5px;
+	padding: 10px 20px; /* Set padding to adjust width */
+    line-height: 40px; /* Set line-height to adjust height */
+}
+
+a.btn:hover {
+	background-color: #5e1413;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 100px 80px;
+}
+
+section:not(.hero):nth-child(even) {
+	background-color: #f5f5f5;
+}
+
+.grid {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+hr {
+	width: 250px;
+	height: 3px;
+	background-color: #e07e7b;
+	border: 0;
+	margin-bottom: 50px;
+}
+
+.image-1 {
+	background-image: url("https://api.hub.jhu.edu/factory/sites/default/files/styles/landscape/public/GettyImages-1334856826.jpg");
+}
+
+.image-2 {
+	background-image: url("https://www.henryford.com/-/media/project/hfhs/henryford/henry-ford-blog/images/mobile-interior-banner-images/2021/03/pregnancy-and-heart-health.jpg?h=600&iar=0&w=640&rev=378a4e2f416843aeb7eb5bfb0544acde&hash=AF75CBB727C6BA0ED1B59522344B0C67");
+}
+
+.image-3 {
+	background-image: url("https://cache.kinbox.com/wp-content/uploads/2018/10/18103049/high-risk-pregnancy-what-the-doctors-are-looking-out-for-2.jpg");
+}
+
+.image-4 {
+	background-image: url("https://img.freepik.com/premium-photo/doctor-check-health-advise-pregnancy-pregnant-women_177530-1525.jpg");
+}
+
+.image-5 {
+	background-image: url("https://img.freepik.com/premium-vector/illustration-baby-belly-with-cute-pose-love-isolated-pink-background_244307-389.jpg?w=740");
+}
+/* https://images.agoramedia.com/wte3.0/gcms/fetal-development-sex-organs-722x406.jpg */
+.fetal-background{
+	background-image: url("https://media.istockphoto.com/id/1445414489/photo/human-fetus-in-the-uterus-3d-illustration.jpg?s=612x612&w=0&k=20&c=-9D0EvzwkzRL6fKsgZBkOGBnsJeNNyXegDtBxh_JFMQ=");
+	background-repeat: no-repeat; /* Prevent image from repeating */
+    background-size: cover; /* Scale the background image to cover the entire element */
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: #80a3db;
+}
+/* https://img.pikbest.com/backgrounds/20220119/mother-baby-gynecology-woman-pink_6245648.jpg!sw800 */
+.main-image{
+	background-image: url("https://img.freepik.com/premium-photo/cartoon-mother-her-baby-sleeping-couch_763042-4459.jpg");
+	background-repeat: no-repeat; /* Prevent image from repeating */
+    background-size: cover; /* Scale the background image to cover the entire element */
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: #80a3db;
+}
+
+section h3.title {
+	text-transform: capitalize;
+	font: bold 48px "Amatic SC", sans-serif;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+section p {
+	max-width: 775px;
+	line-height: 2;
+	padding: 0 20px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+@media (max-width: 800px) {
+	section {
+		padding: 50px 20px;
+	}
+}
+
+/*Header Styles*/
+
+header {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 35px 100px 0;
+	animation: 1s fadein 0.5s forwards;
+	opacity: 0;
+	color: #0d266b;
+	z-index: 2;
+}
+
+@keyframes fadein {
+	100% {
+		opacity: 1;
+	}
+}
+
+header h2 {
+	font-family: "Amatic SC", sans-serif;
+}
+
+header nav {
+	display: flex;
+	margin-right: -15px;
+}
+
+header nav li {
+	margin: 0 15px;
+}
+
+@media (max-width: 800px) {
+	header {
+		padding: 20px 50px;
+		flex-direction: column;
+	}
+
+	header h2 {
+		margin-bottom: 15px;
+	}
+}
+
+/*Hero Styles*/
+
+.hero {
+	position: relative;
+	justify-content: center;
+	text-align: center;
+	min-height: 100vh;
+	color: #edf6ff;
+}
+
+.hero .background-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url("https://www.henryford.com/-/media/project/hfhs/henryford/henry-ford-blog/images/mobile-interior-banner-images/2021/03/pregnancy-and-heart-health.jpg?h=600&iar=0&w=640&rev=378a4e2f416843aeb7eb5bfb0544acde&hash=AF75CBB727C6BA0ED1B59522344B0C67");
+	background-size: cover;
+	z-index: -1;
+	background-color: #80a3db;
+}
+
+.hero h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 500%;
+	text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+	margin-bottom: 15px;
+}
+
+.hero h3 {
+	font: 28px "Raleway", sans-serif;
+	font-weight: 300;
+	text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+	margin-bottom: 40px;
+}
+
+.hero a.btn {
+	padding: 20px 46px;
+}
+
+.hero-content-area {
+	opacity: 0;
+	margin-top: 100px;
+	animation: 1s slidefade 1s forwards;
+}
+
+@keyframes slidefade {
+	100% {
+		opacity: 1;
+		margin: 0;
+	}
+}
+
+@media (max-width: 800px) {
+	.hero {
+		min-height: 600px;
+	}
+
+	.hero h1 {
+		font-size: 48px;
+	}
+
+	.hero h3 {
+		font-size: 24px;
+	}
+
+	.hero a.btn {
+		padding: 15px 40px;
+	}
+}
+
+/*Destinations Section*/
+
+.destinations .grid li {
+	height: 350px;
+	padding: 20px;
+	background-clip: content-box;
+	background-size: cover;
+	background-position: center;
+}
+
+.destinations .grid li.small {
+	flex-basis: 30%;
+}
+
+.destinations .grid li.large {
+	flex-basis: 70%;
+}
+
+@media (max-width: 1100px) {
+	.destinations .grid li.small,
+	.destinations .grid li.large {
+		flex-basis: 50%;
+	}
+}
+
+@media (max-width: 800px) {
+	.destinations .grid li.small,
+	.destinations .grid li.large {
+		flex-basis: 100%;
+	}
+}
+
+/*Packages Section*/
+
+.packages .grid li {
+	padding: 50px;
+	flex-basis: 50%;
+	text-align: center;
+}
+
+.packages .grid li i {
+	color: #51120f;
+}
+
+.packages .grid li h4 {
+	font-size: 30px;
+	margin: 25px 0;
+}
+
+@media (max-width: 800px) {
+	.packages .grid li {
+		flex-basis: 100%;
+		padding: 20px;
+	}
+}
+
+/*Testimonials Section*/
+
+.testimonials .quote {
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 1.5;
+	margin: 40px 0 25px;
+}
+
+@media (max-width: 800px) {
+	.testimonials .quote {
+		font-size: 18px;
+		margin: 15px 0;
+	}
+
+	.testimonials .author {
+		font-size: 50px;
+        font-weight: 1000;
+	}
+}
+
+/*Contact Section*/
+
+.contact form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 60%;
+}
+
+.contact form .btn {
+	padding: 18px 42px;
+}
+
+
+/*Footer Section*/
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: #555;
+	color: #fff;
+	padding: 20px 0;
+}
+
+footer ul {
+	display: flex;
+}
+
+footer ul li {
+	margin-left: 16px;
+}
+
+footer p {
+	text-transform: uppercase;
+	font-size: 14px;
+	opacity: 0.6;
+	align-self: center;
+}
+
+@media (max-width: 1100px) {
+	footer {
+		flex-direction: column;
+	}
+
+	footer p {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	footer ul li {
+		margin: 0 8px;
+	}
+}
+
+/* Flip book Css */
+
+#book {
+    width: 400px;
+    height: 600px;
+    position: relative;
+	margin: 20px auto;
+}
+
+.my-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+	color: black;
+	text-align: center;
+}
+
+#cover-page, #last-page {
+    background: #f11628;
+    font-size: 30px;
+    font-weight: bold;
+	text-align: center;
+	border: 10px solid black;
+	padding: 40px;
+}
+
+#cover-page img{
+width: 300px;
+height: auto;
+margin:20px;
+border-radius: 50%;
+}
+
+#cover-page h2{
+	color:white
+}
+
+.trimester-wrapper{
+	background-color: white;
+	width:400px;
+	text-align: center;
+  }
+
+  #last-page img{
+	width: 350px;
+	height: auto;
+	border-radius: 10%;
+}
+
+#last-page  h2{
+	color:white
+}
+
+.date {
+    text-align: center;
+    color: black;
+    font-size: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-weight: bold;
+	background-color: pink;
+}
+
+.input-data{
+	font-size: 32px;
+}
+
+.input-data-item img{
+	width:80px;
+	height:80px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+.prediction{
+	font-size: 30px;
+	margin-top: 20px;
+	background-color: pink;
+	padding-top: 30px;
+    padding-bottom: 50px;
+}
